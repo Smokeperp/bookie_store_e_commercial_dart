@@ -1,6 +1,5 @@
-import 'package:book_store_e_commercial/pages/intro_page.dart';
+import 'package:book_store_e_commercial/navigationbar.dart';
 import 'package:book_store_e_commercial/pages/shop_page.dart';
-import 'package:book_store_e_commercial/pages/splash_screen.dart';
 import 'package:book_store_e_commercial/themes/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -15,11 +14,11 @@ class Book extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: lightMode,
-      home: const SplashScreen(),
+      theme: lightMode, color: Colors.black,
+      home: const NavigationMenu(),
       routes: {
-        '/intro_page': (context) => const IntroPage(),
         '/shop_page': (context) => const ShopPage(),
+        '/navigation_menu': (context) => const NavigationMenu(),
       },
     );
   }
