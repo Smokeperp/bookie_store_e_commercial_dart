@@ -1,6 +1,7 @@
 import 'package:book_store_e_commercial/navigationbar.dart';
-import 'package:book_store_e_commercial/pages/shop_page.dart';
+import 'package:book_store_e_commercial/features/shop/Home/pages/shop_page.dart';
 import 'package:book_store_e_commercial/themes/theme.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +15,8 @@ class Book extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: lightMode, color: Colors.black,
+      theme: lightMode, 
+      color: Colors.black,
       home: const NavigationMenu(),
       routes: {
         '/shop_page': (context) => const ShopPage(),
