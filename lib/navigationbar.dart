@@ -36,7 +36,7 @@ class NavigationMenu extends StatelessWidget {
               NavigationDestination(icon: Icon(Iconsax.search_normal_1_copy,  color: controller.selectedIndex.value == 2 ? Colors.black : Colors.grey), label: 'Search'),
             ],
             labelTextStyle: WidgetStatePropertyAll(
-              TextStyle(color: Colors.black)
+              TextStyle(color: Colors.white)
             ),
             overlayColor: WidgetStatePropertyAll(
               Colors.grey
@@ -53,7 +53,7 @@ class NavigatorController extends GetxController{
   
   final List<Widget> pages = [
   ShopPage(),
-  libraryScreen(),
+  LibraryScreen(),
   Center(child: Text("Search")),
 ];
   Color iconColor= Colors.black;

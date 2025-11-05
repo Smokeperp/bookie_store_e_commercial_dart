@@ -9,14 +9,12 @@ class AppBarShop extends StatelessWidget {
               centerTitle: true,
               pinned: true,
               expandedHeight: 80,
-              backgroundColor: Colors.white,
               flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
                 title: const Text(
                   "Home",
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: Colors.white),
                 ),
-                background: Container(color: Colors.white),
             ),
           );
   }
