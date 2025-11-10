@@ -1,11 +1,15 @@
 import 'dart:async';
 
-import 'package:book_store_e_commercial/features/shop/Home/widgets/app_bar.dart';
-import 'package:book_store_e_commercial/features/shop/Home/widgets/grid_list.dart';
-import 'package:book_store_e_commercial/features/shop/Home/widgets/horizontal_list.dart';
-import 'package:book_store_e_commercial/features/shop/Home/widgets/horizontal_recent_books.dart';
+
+import 'package:auto_route/annotations.dart';
+import 'package:book_store_e_commercial/features/home/widgets/app_bar.dart';
+import 'package:book_store_e_commercial/features/home/widgets/grid_list.dart';
+import 'package:book_store_e_commercial/features/home/widgets/horizontal_list.dart';
+import 'package:book_store_e_commercial/features/home/widgets/horizontal_recent_books.dart';
 import 'package:flutter/material.dart';
 
+
+@RoutePage()
 class ShopPage extends StatefulWidget {
   const ShopPage({super.key});
 

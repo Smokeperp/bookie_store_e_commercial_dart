@@ -1,9 +1,11 @@
+import 'package:auto_route/annotations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:percent_indicator/flutter_percent_indicator.dart';
 
+@RoutePage()
 class LibraryScreen extends StatelessWidget {
   const LibraryScreen({super.key});
 
