@@ -1,6 +1,9 @@
 import 'package:auto_route/annotations.dart';
+import 'package:book_store_e_commercial/core/book/abstract_book_repository.dart';
+import 'package:book_store_e_commercial/core/models/books_model.dart';
 import 'package:book_store_e_commercial/core/widgets/custom_text_input_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 @RoutePage()
@@ -12,10 +15,12 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  
   TextEditingController searchController = TextEditingController();
   List<String> previousSearches = [];
-
+  final _repository = GetIt.I<AbstractBookRepository>();
+  late Future<List<BooksModel>> _booksFuture;
+  String? changedValue;
+  bool isSearched = false;
 
   @override
   void dispose() {
@@ -23,6 +28,11 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _booksFuture = _repository.getBookList("Абай ку");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +49,6 @@ class _SearchPageState extends State<SearchPage> {
                 children: [
                   Expanded(
                     child: CustomTextFormField(
-                      
                       hint: "Search",
                       prefixIcon: Iconsax.search_normal_1,
                       controller: searchController,
@@ -49,16 +58,27 @@ class _SearchPageState extends State<SearchPage> {
                               ? null
                               : Icons.cancel_sharp,
                       onTapSuffixIcon: () {
-                        searchController.clear();
+                        setState(() {
+                          searchController.clear();
+                          isSearched = false; // вернулись к истории
+                        });
                       },
-                      onChanged: (pure) {
-                        setState(() {});
+                      onChanged: (value) {
+                        setState(() {
+                          if (value.trim().isEmpty) {
+                            isSearched = false;
+                            _booksFuture = Future.value([]);
+                          } else {
+                            isSearched = true;
+                            _booksFuture = _repository.getBookList(value);
+                          }
+                        });
                       },
+
                       onEditingComplete: () {
                         if (searchController.text.isNotEmpty) {
                           setState(() {
                             previousSearches.add(searchController.text);
-                            searchController.clear();
                           });
                         }
                         debugPrint('List of items: $previousSearches');
@@ -69,69 +89,129 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
 
-            
+            if (!isSearched)...[
 
-            if (previousSearches.isNotEmpty) ...[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Recently searched', style: TextStyle(color: Colors.grey.shade300, fontSize: 15) ),
-                    TextButton(
-                      style: ButtonStyle(
-                        overlayColor: WidgetStatePropertyAll(Colors.transparent)
+              if (previousSearches.isNotEmpty) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Recently searched',
+                        style: TextStyle(
+                          color: Colors.grey.shade300,
+                          fontSize: 15,
+                        ),
                       ),
-                      onPressed: (){
-                        setState(() {
-                          previousSearches.clear();
-
-                        });
-                      },
-                       child: Text('Clear',  style: TextStyle(color: Colors.grey.shade300, fontSize: 15) ))
-                  ],
+                      TextButton(
+                        style: ButtonStyle(
+                          overlayColor: WidgetStatePropertyAll(
+                            Colors.transparent,
+                          ),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            previousSearches.clear();
+                          });
+                        },
+                        child: Text(
+                          'Clear',
+                          style: TextStyle(
+                            color: Colors.grey.shade300,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              )
-            ],
-                
-                    // Previous Searches
-            ListView.builder(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                itemCount: previousSearches.length,
-                physics:PageScrollPhysics(),
-                itemBuilder: (context, index) => previousSearchItems(index),
-              ),
-
+                // Previous Searches
+                ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemCount: previousSearches.length,
+                  physics: PageScrollPhysics(),
+                  itemBuilder: (context, index) => previousSearchItems(index),
+                ),
+              ],
             const SizedBox(height: 8),
 
-
             // Search Suggestion
-            Container(
-            width: double.infinity,
-            padding: EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [ 
-              Text('Search Suggestions', style: TextStyle(fontSize: 20, color: Colors.grey.shade300),),
-              SizedBox(height: 19,),
-              Row(
-                children: [
-                  searchSuggestionTime("asdsaasfsafasfd"),
-                  searchSuggestionTime("asdsad"),
-                ],
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Search Suggestions',
+                      style: TextStyle(fontSize: 20, color: Colors.grey.shade300),
+                    ),
+                    SizedBox(height: 19),
+                    Row(
+                      children: [
+                        searchSuggestionTime("asdsaasfsafasfd"),
+                        searchSuggestionTime("asdsad"),
+                      ],
+                    ),
+                    SizedBox(height: 13),
+                    Row(
+                      children: [
+                        searchSuggestionTime("dsad"),
+                        searchSuggestionTime("asdsasd"),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(height: 13,),
-              Row(
-                children: [
-                  searchSuggestionTime("dsad"),
-                  searchSuggestionTime("asdsasd"),
-                ],
-              ),
-            ],),
-            ),
+            ],
 
 
+
+            if (isSearched)
+              // ListOfBooks
+              Expanded(
+                child: FutureBuilder<List<BooksModel>>(
+                  future: _booksFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(
+                        child: Text(
+                          "Ошибка: ${snapshot.error}",
+                          style: const TextStyle(color: Colors.red),
+                        ),
+                      );
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return const Center(
+                        child: Text(
+                          "Ничего не найдено",
+                          style: TextStyle(color: Colors.white70),
+                        ),
+                      );
+                    }
+                    final books = snapshot.data!;
+                    return ListView.builder(
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        final book = books[index];
+                        return ListTile(
+                          leading:
+                              book.thumbnail != null
+                                  ? Image.network(book.thumbnail!)
+                                  : const Icon(Icons.book, color: Colors.white),
+                          title: Text(
+                            book.title,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
           ],
         ),
       ),
@@ -170,22 +250,12 @@ class _SearchPageState extends State<SearchPage> {
 
 searchSuggestionTime(String text) {
   return Container(
-    margin: EdgeInsets.fromLTRB(0,0,10,0),
+    margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
     padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-    decoration: BoxDecoration(color: Colors.grey.shade800, borderRadius: BorderRadius.circular(30)),
-    child: Text(
-      text,
-      style: TextStyle(color: Colors.white),
-      ),
+    decoration: BoxDecoration(
+      color: Colors.grey.shade800,
+      borderRadius: BorderRadius.circular(30),
+    ),
+    child: Text(text, style: TextStyle(color: Colors.white)),
   );
 }
-
-
-
-
-
-
-
-
-
-

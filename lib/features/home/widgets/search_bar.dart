@@ -23,7 +23,7 @@ class _ShopSearchBarState extends State<ShopSearchBar> {
             padding: const WidgetStatePropertyAll<EdgeInsets>(
               EdgeInsets.symmetric(horizontal: 15.0),
             ),
-            hintText: 'Search for books',
+            hintText:  'Search for books',
             backgroundColor: WidgetStatePropertyAll<Color>(
               Colors.blueGrey.shade800,
             ),

@@ -13,7 +13,7 @@ class AppBarShop extends StatelessWidget {
                 centerTitle: true,
                 title: const Text(
                   "Home",
-                  style: TextStyle(color: Colors.white),
+                  style:  TextStyle(color: Colors.white),
                 ),
             ),
           );

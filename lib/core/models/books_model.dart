@@ -5,16 +5,20 @@ part 'books_model.g.dart';
 @JsonSerializable()
 class BooksModel {
   final String title;
-  final String? imageLinks;
+  final String? thumbnail; // ссылка на обложку
 
   BooksModel({
     required this.title,
-    this.imageLinks,
+    this.thumbnail,
   });
 
-  // From JSON
-  factory BooksModel.fromJson(Map<String, dynamic> json) => _$BooksModelFromJson(json);
+  factory BooksModel.fromJson(Map<String, dynamic> json) {
+    return BooksModel(
+      title: json['title'] ?? 'No title',
+      thumbnail: json['imageLinks'] != null ? json['imageLinks']['thumbnail'] : null,
+    );
+  }
 
-  // To JSON
+
   Map<String, dynamic> toJson() => _$BooksModelToJson(this);
 }

@@ -33,7 +33,7 @@ class _ShopPageState extends State<ShopPage> {
     });
   }
 
-  List<String> books = List.generate(10, (index) => 'Book #${index + 1}');
+  List<String> books = List.generate(1, (index) => 'Book #${index + 1}');
   bool isLoading = false;
 
   void loadNewBooks() async {

@@ -8,11 +8,8 @@ part of 'books_model.dart';
 
 BooksModel _$BooksModelFromJson(Map<String, dynamic> json) => BooksModel(
   title: json['title'] as String,
-  imageLinks: json['imageLinks'] as String?,
+  thumbnail: json['thumbnail'] as String?,
 );
 
 Map<String, dynamic> _$BooksModelToJson(BooksModel instance) =>
-    <String, dynamic>{
-      'title': instance.title,
-      'imageLinks': instance.imageLinks,
-    };
+    <String, dynamic>{'title': instance.title, 'thumbnail': instance.thumbnail};

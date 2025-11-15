@@ -14,7 +14,7 @@ class HorizontalList extends StatelessWidget {
       itemBuilder: (_, index) {
         return Container(
           width: 130,
-          margin: EdgeInsets.only(right: 10),
+          margin: const EdgeInsets.only(right: 10),
           decoration: BoxDecoration(
             color: Colors.amber,
             borderRadius: BorderRadius.circular(12),

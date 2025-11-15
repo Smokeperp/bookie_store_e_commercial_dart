@@ -14,12 +14,12 @@ class HorizontalRecentBooks extends StatelessWidget {
                   itemBuilder: (_, index){
                     return Container(
                       width: 280,
-                      margin: EdgeInsets.only(right: 10),
+                      margin: const EdgeInsets.only(right: 10),
                       decoration: BoxDecoration(
                         color: Colors.black,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Center(child: Text(books[index])),
+                      child:  Center(child: Text(books[index])),
                   );
                     
                   }) ;

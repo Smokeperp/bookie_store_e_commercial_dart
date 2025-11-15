@@ -36,9 +36,9 @@ class _NavigationMenuPageState extends State<NavigationMenuPage> {
               onDestinationSelected: (index) => _openPage(index, tabsRouter),
               destinations:  [
               
-              NavigationDestination(icon: Icon(Iconsax.home, color:Colors.grey ,), label: 'Home'),
-              NavigationDestination(icon: Icon(Iconsax.book_saved,  color:  Colors.grey), label: 'Library'),
-              NavigationDestination(icon: Icon(Iconsax.search_normal_1_copy,  color: Colors.grey), label: 'Search'),
+              NavigationDestination(icon: Icon(Iconsax.home, color: tabsRouter.activeIndex == 0 ? Colors.black : Colors.grey ,), label: 'Home'),
+              NavigationDestination(icon: Icon(Iconsax.book_saved,  color: tabsRouter.activeIndex == 1 ? Colors.black : Colors.grey), label: 'Library'),
+              NavigationDestination(icon: Icon(Iconsax.search_normal_1_copy,  color: tabsRouter.activeIndex == 2 ? Colors.black : Colors.grey), label: 'Search'),
             ],
             labelTextStyle: WidgetStatePropertyAll(
               TextStyle(color: Colors.white)
