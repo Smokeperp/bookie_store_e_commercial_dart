@@ -33,7 +33,7 @@ class _ShopPageState extends State<ShopPage> {
     });
   }
 
-  List<String> books = List.generate(1, (index) => 'Book #${index + 1}');
+  List<String> books = List.generate(6, (index) => 'Book #${index + 1}');
   bool isLoading = false;
 
   void loadNewBooks() async {
@@ -61,7 +61,7 @@ class _ShopPageState extends State<ShopPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      
       body: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (overscroll) {
           if (isLoading) {

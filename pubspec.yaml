@@ -47,6 +47,9 @@ dependencies:
   dio: ^5.9.0
   auto_route: ^10.2.0
   get_it: ^9.0.5
+  firebase_core: ^4.2.1
+  firebase_auth: ^6.1.2
+  google_sign_in: ^6.3.0
 
 
 dev_dependencies:

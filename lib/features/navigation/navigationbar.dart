@@ -57,7 +57,6 @@ class _NavigationMenuPageState extends State<NavigationMenuPage> {
   void _openPage(index, TabsRouter tabsRouter){
     tabsRouter.setActiveIndex(index); 
   }
-
 }
 
 

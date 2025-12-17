@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
+//Imogen Heap X Clams Casino - Just For Now X I'm Go
+
 @RoutePage()
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -60,7 +62,7 @@ class _SearchPageState extends State<SearchPage> {
                       onTapSuffixIcon: () {
                         setState(() {
                           searchController.clear();
-                          isSearched = false; // вернулись к истории
+                          isSearched = false; 
                         });
                       },
                       onChanged: (value) {
@@ -198,6 +200,7 @@ class _SearchPageState extends State<SearchPage> {
                       itemBuilder: (context, index) {
                         final book = books[index];
                         return ListTile(
+                          contentPadding: EdgeInsets.all(15),
                           leading:
                               book.thumbnail != null
                                   ? Image.network(book.thumbnail!)
